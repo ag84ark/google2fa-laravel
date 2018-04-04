@@ -3,9 +3,9 @@
 namespace PragmaRX\Google2FALaravel\Support;
 
 use Illuminate\Http\Request as IlluminateRequest;
-use PragmaRX\Google2FALaravel\Events\EmptyOneTimePasswordReceived;
-use PragmaRX\Google2FALaravel\Events\LoginFailed;
-use PragmaRX\Google2FALaravel\Events\LoginSucceeded;
+// use PragmaRX\Google2FALaravel\Events\EmptyOneTimePasswordReceived;
+// use PragmaRX\Google2FALaravel\Events\LoginFailed;
+// use PragmaRX\Google2FALaravel\Events\LoginSucceeded;
 use PragmaRX\Google2FALaravel\Exceptions\InvalidOneTimePassword;
 use PragmaRX\Google2FALaravel\Google2FA;
 
@@ -51,11 +51,11 @@ class Authenticator extends Google2FA
      */
     private function fireLoginEvent($succeeded)
     {
-        event(
-            $succeeded
-                ? new LoginSucceeded($this->getUser())
-                : new LoginFailed($this->getUser())
-        );
+        // event(
+        //     $succeeded
+        //         ? new LoginSucceeded($this->getUser())
+        //         : new LoginFailed($this->getUser())
+        // );
 
         return $succeeded;
     }
@@ -70,7 +70,7 @@ class Authenticator extends Google2FA
     protected function getOneTimePassword()
     {
         if (is_null($password = $this->getInputOneTimePassword()) || empty($password)) {
-            event(new EmptyOneTimePasswordReceived());
+            // event(new EmptyOneTimePasswordReceived());
 
             if ($this->config('throw_exceptions', true)) {
                 throw new InvalidOneTimePassword('One Time Password cannot be empty.');
